@@ -5,7 +5,7 @@
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Proposez vos produits/services, suivez des formations qui vous apporteront un plus et bénéficiez d’un univers incroyable pour votre épanouissement.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
