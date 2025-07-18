@@ -1,42 +1,14 @@
-// api/cinetpay-return/[...slug].js
 export default async function handler(req, res) {
-  try {
-    console.log('=== CINETPAY RETURN HANDLER ===');
-    console.log('Method:', req.method);
-    console.log('URL:', req.url);
-    console.log('Query:', req.query);
-    console.log('Body:', req.body);
-    
-    const { slug } = req.query;
-    
-    // Construire le chemin de redirection
-    let redirectPath = '';
-    if (Array.isArray(slug)) {
-      redirectPath = slug.join('/');
-    } else if (slug) {
-      redirectPath = slug;
-    }
-    
-    const redirectUrl = `https://unircorn.net/${redirectPath}`;
-    
-    console.log('Redirecting to:', redirectUrl);
-    
-    // Accepter POST et GET
-    if (req.method === 'POST' || req.method === 'GET') {
-      res.setHeader('Location', redirectUrl);
-      res.status(302).end();
-      return;
-    }
-    
-    // Autres méthodes non supportées
-    res.status(405).json({ 
-      error: 'Method Not Allowed',
-      method: req.method,
-      allowed: ['GET', 'POST']
-    });
-    
-  } catch (error) {
-    console.error('Error in handler:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+  // req.query.slug est un tableau des segments
+  const { slug } = req.query;
+  const dynamicPath = slug ? slug.join('/') : '';
+  // URL finale vers ta page FlutterFlow
+  const redirectUrl = `https://unircorn.net/${dynamicPath}`;
+
+  if (req.method === 'POST' || req.method === 'GET') {
+    // Redirection 302 vers la page dynamique
+    return res.redirect(302, redirectUrl);
   }
+  // Toute autre méthode : 405
+  res.status(405).send('Method Not Allowed');
 }
