@@ -10,28 +10,21 @@ export default function handler(req, res) {
     const html = `
       <!DOCTYPE html>
       <html>
-        <head>
-          <title>Redirection...</title>
-          <style>
-            body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-            .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
-            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-          </style>
-        </head>
-        <body>
-          <h3>Redirection en cours...</h3>
-          <div class="spinner"></div>
-          <form id="redirectForm" method="POST" action="https://unircorn.net/${dynamicPath}">
-            ${Object.entries(req.body || {}).map(([key, value]) => 
-              `<input type="hidden" name="${key}" value="${value}" />`
-            ).join('')}
-          </form>
-          <script>
-            setTimeout(() => {
-              document.getElementById('redirectForm').submit();
-            }, 1000);
-          </script>
-        </body>
+      <head>
+        <title>Redirection en cours...</title>
+        <meta charset="utf-8">
+      </head>
+      <body>
+        <p>Redirection en cours...</p>
+        <form method="POST" action="https://unircorn.net/${dynamicPath}" id="redirectForm">
+          ${Object.entries(req.body || {}).map(([key, value]) => 
+            `<input type="hidden" name="${key}" value="${value}">`
+          ).join('')}
+        </form>
+        <script>
+          document.getElementById('redirectForm').submit();
+        </script>
+      </body>
       </html>
     `;
     
