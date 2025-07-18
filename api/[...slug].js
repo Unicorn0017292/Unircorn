@@ -1,10 +1,17 @@
+// pages/api/[...slug].js
 export default function handler(req, res) {
+  // Debug: log de la méthode et du chemin
+  console.log('Method:', req.method);
+  console.log('URL:', req.url);
+  console.log('Query:', req.query);
+  
+  // Vérifier si la méthode est supportée
   if (req.method === 'POST') {
     const { slug } = req.query;
-    // Enlever 'api' du chemin pour rediriger vers le bon endroit
     const dynamicPath = slug ? slug.join('/') : '';
     
     console.log('POST detected, dynamicPath:', dynamicPath);
+    console.log('Body:', req.body);
     
     // Page HTML qui re-soumet vers ton site SANS /api/
     const html = `
@@ -29,11 +36,18 @@ export default function handler(req, res) {
     `;
     
     res.setHeader('Content-Type', 'text/html');
-    return res.send(html);
+    return res.status(200).send(html);
   }
   
-  // Pour GET, redirection simple
-  const { slug } = req.query;
-  const dynamicPath = slug ? slug.join('/') : '';
-  return res.redirect(302, `https://unircorn.net/${dynamicPath}`);
+  if (req.method === 'GET') {
+    const { slug } = req.query;
+    const dynamicPath = slug ? slug.join('/') : '';
+    console.log('GET detected, redirecting to:', `https://unircorn.net/${dynamicPath}`);
+    return res.redirect(302, `https://unircorn.net/${dynamicPath}`);
+  }
+  
+  // Si ni GET ni POST, retourner 405
+  console.log('Method not allowed:', req.method);
+  res.setHeader('Allow', ['GET', 'POST']);
+  return res.status(405).json({ error: 'Method not allowed' });
 }
