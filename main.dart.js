@@ -41449,7 +41449,7 @@ s=p}while(true)switch(s){case 0:h=t.N
 g=A.h(["XOF","105894840","XAF","105900216"],h,h)
 if(!g.aG(0,a)){q=A.b(["Devise invalide",""],t.s)
 s=1
-break}n=A.h(["apikey","19145038096821bbc94152c7.75644505","site_id",g.j(0,a),"transaction_id",b,"amount",10500,"currency",a,"description","FRAIS D INSCRIPTION ","notify_url",c,"return_url",c,"channels","ALL"],h,t.X)
+break}n=A.h(["apikey","19145038096821bbc94152c7.75644505","site_id",g.j(0,a),"transaction_id",b,"amount",10500,"currency",a,"description","FRAIS D INSCRIPTION ","notify_url","https://webhook.site/d1dbbb89-52c7-49af-a689-b3c412df820d","return_url",c,"channels","ALL"],h,t.X)
 p=4
 j=A.d9("https://api-checkout.cinetpay.com/v2/payment",0,null)
 h=A.h(["Content-Type","application/json"],h,h)
