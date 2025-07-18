@@ -1,4 +1,6 @@
 export default async function handler(req, res) {
+  console.log('Method:', req.method, 'URL:', req.url);
+  
   if (req.method === 'POST') {
     const { slug } = req.query;
     const dynamicPath = slug ? slug.join('/') : '';
@@ -38,9 +40,11 @@ export default async function handler(req, res) {
     return res.send(html);
   }
   
-  // Pour les autres méthodes (GET, etc), redirection simple
-  const { slug } = req.query;
-  const dynamicPath = slug ? slug.join('/') : '';
-  const redirectUrl = `https://unircorn.net/${dynamicPath}`;
-  return res.redirect(302, redirectUrl);
+  // Pour les autres méthodes, retourner une erreur avec debug info
+  return res.status(405).json({
+    error: 'Method Not Allowed',
+    method: req.method,
+    url: req.url,
+    allowedMethods: ['POST']
+  });
 }
